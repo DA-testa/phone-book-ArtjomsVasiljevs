@@ -1,3 +1,4 @@
+#221RDB330 Artjoms Vasiļjevs 17.grupa
 class Query:
     def __init__(self, query):
         self.type = query[0]
@@ -5,31 +6,27 @@ class Query:
         if self.type == 'add':
             self.name = query[2]
 
-def read_queries():
+def queriesR():
     n = int(input())
     return [Query(input().split()) for i in range(n)]
 
-def write_responses(result):
+def responsesW(result):
     print('\n'.join(result))
 
-def process_queries(queries):
+def queriesP(queries):
     result = []
-    # Keep dictionary of all existing (i.e. not deleted yet) contacts.
     contacts = {}
     for query in queries:
         if query.type == 'add':
-            # Add or update the contact with the given phone number and name.
             contacts[query.number] = query.name
         elif query.type == 'del':
-            # Delete the contact with the given phone number.
             contacts.pop(query.number, None)
         else:
-            # Find the name of the contact with the given phone number.
             name = contacts.get(query.number, 'not found')
             result.append(name)
     return result
 
 if __name__ == '__main__':
-    queries = read_queries()
-    responses = process_queries(queries)
-    write_responses(responses)
+    queries = queriesR()
+    responses = queriesP(queries)
+    responsesW(responses)
